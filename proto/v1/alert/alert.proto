@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package beget.vpsAlert.v1.alert;
+
+import "google/api/annotations.proto";
+import "vps-alert/proto/v1/structures/structures.proto";
+
+service AlertService {
+    rpc findOne (FindOneRequest) returns (FindOneResponse) {
+        option (google.api.http) = {
+            get: "/v1/vpsAlert/alert/{id}"
+        };
+    }
+    rpc findAll (FindAllRequest) returns (FindAllResponse) {
+        option (google.api.http) = {
+            get: "/v1/vpsAlert/alert"
+        };
+    }
+}
+
+// findOne
+message FindOneRequest {
+    string id = 1;
+}
+message FindOneResponse {
+    structures.Alert alert = 1;
+}
+
+// findAll
+message FindAllRequest {
+}
+
+message FindAllResponse {
+    repeated structures.Alert alert = 1;
+}

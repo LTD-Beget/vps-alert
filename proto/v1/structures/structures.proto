@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package beget.vpsAlert.v1.structures;
+
+message Policy {
+}
+
+message Alert {
+}

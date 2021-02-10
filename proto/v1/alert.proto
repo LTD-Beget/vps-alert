@@ -3,7 +3,7 @@ syntax = "proto3";
 package beget.vpsAlert.v1.alert;
 
 import "google/api/annotations.proto";
-import "vps-alert/proto/v1/structures/structures.proto";
+import "proto/v1/structures/structures.proto";
 
 service AlertService {
     rpc findOne (FindOneRequest) returns (FindOneResponse) {

@@ -1,0 +1,156 @@
+syntax = "proto3";
+
+package beget.vpsAlert.v1.policy;
+
+import "google/api/annotations.proto";
+import "proto/v1/structures.proto";
+
+service PolicyService {
+    rpc getPolicy (GetPolicyRequest) returns (GetPolicyResponse) {
+        option (google.api.http) = {
+            get: "/v1/vpsAlert/policy/{id}"
+        };
+    }
+    rpc getPolicyList (GetPolicyListRequest) returns (GetPolicyListResponse) {
+        option (google.api.http) = {
+            get: "/v1/vpsAlert/policy"
+        };
+    }
+    rpc createPolicy (CreatePolicyRequest) returns (CreatePolicyResponse) {
+        option (google.api.http) = {
+            post: "/v1/vpsAlert/policy"
+        };
+    }
+
+    rpc renamePolicy (RenamePolicyRequest) returns (RenamePolicyResponse) {
+        option (google.api.http) = {
+            put: "/v1/vpsAlert/policy/{id}"
+        };
+    }
+
+    rpc deletePolicy (DeletePolicyRequest) returns (DeletePolicyResponse) {
+        option (google.api.http) = {
+            delete: "/v1/vpsAlert/policy/{id}"
+        };
+    }
+
+    rpc linkPolicy (LinkPolicyRequest) returns (LinkPolicyResponse) {
+        option (google.api.http) = {
+            put: "/v1/vpsAlert/policy/{id}/linked"
+        };
+    }
+
+    rpc unlinkPolicy (UnlinkPolicyRequest) returns (UnlinkPolicyResponse) {
+        option (google.api.http) = {
+            put: "/v1/vpsAlert/policy/{id}/unlinked"
+        };
+    }
+}
+
+message GetPolicyRequest {
+    string id = 1;
+}
+
+message GetPolicyResponse {
+    structures.Policy policy = 1;
+}
+
+message GetPolicyListRequest {
+}
+
+message GetPolicyListResponse {
+    repeated structures.Policy policy = 1;
+}
+
+message CreatePolicyRequest {
+    string name = 1;
+}
+
+message CreatePolicyResponse {
+    oneof result {
+        structures.Policy policy = 1;
+        Error error = 2;
+    }
+
+    message Error {
+        string message = 1;
+        ErrorCode code = 2;
+    }
+
+    enum ErrorCode {
+        _ = 0;
+        NAME_ALREADY_EXIST = 1;
+    }
+}
+
+message DeletePolicyRequest {
+    uint64 id = 1;
+}
+
+message DeletePolicyResponse {
+}
+
+message RenamePolicyRequest {
+    uint64 id = 1;
+    string name = 2;
+}
+
+message RenamePolicyResponse {
+    oneof result {
+        structures.Policy policy = 1;
+        Error error = 2;
+    }
+
+    message Error {
+        string message = 1;
+        ErrorCode code = 2;
+    }
+
+    enum ErrorCode {
+        _ = 0;
+        NAME_ALREADY_EXIST = 1;
+    }
+}
+
+message LinkPolicyRequest {
+    uint64 id = 1;
+    string vps_uuid = 2;
+}
+
+message LinkPolicyResponse {
+    oneof result {
+        structures.Policy policy = 1;
+        Error error = 2;
+    }
+
+    message Error {
+        string message = 1;
+        ErrorCode code = 2;
+    }
+
+    enum ErrorCode {
+        _ = 0;
+        VPS_ALREADY_HAVE_POLICY = 1;
+    }
+}
+
+message UnlinkPolicyResponse {
+    uint64 id = 1;
+    string vps_uuid = 2;
+}
+
+message UnlinkPolicyRequest {
+    oneof result {
+        structures.Policy policy = 1;
+        Error error = 2;
+    }
+
+    message Error {
+        string message = 1;
+        ErrorCode code = 2;
+    }
+
+    enum ErrorCode {
+        _ = 0;
+    }
+}

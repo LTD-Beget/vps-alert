@@ -6,30 +6,105 @@ import "google/api/annotations.proto";
 import "proto/v1/structures/structures.proto";
 
 service AlertService {
-    rpc findOne (FindOneRequest) returns (FindOneResponse) {
+    // Добавленеи Alert к Policy
+    rpc addAlert (AddAlertRequest) returns (AddAlertResponse) {
+        option (google.api.http) = {
+            post: "/v1/vpsAlert/alert"
+        };
+    }
+
+    // Удаление Alert по ID
+    rpc deleteAlert (DeleteAlertRequest) returns (DeleteAlertResponse) {
+        option (google.api.http) = {
+            delete: "/v1/vpsAlert/alert/{id}"
+        };
+    }
+
+    // Получение Alert по ID
+    rpc getAlert (GetAlertRequest) returns (GetAlertResponse) {
         option (google.api.http) = {
             get: "/v1/vpsAlert/alert/{id}"
         };
     }
-    rpc findAll (FindAllRequest) returns (FindAllResponse) {
+
+    // Получение полного списка Alert
+    rpc getAlertList (GetAlertListRequest) returns (GetAlertListResponse) {
         option (google.api.http) = {
             get: "/v1/vpsAlert/alert"
         };
     }
 }
 
-// findOne
-message FindOneRequest {
-    string id = 1;
-}
-message FindOneResponse {
-    structures.Alert alert = 1;
+message AddAlertRequest {
+    // Уникальный идентификатор policy для которой создается Alert
+    uint64 policy_id = 1;
+    // Имя Alert
+    string name = 2;
+    // Метрика для которой выполняются условия алерта
+    structures.Alert.Metric metric = 3;
+    // Параметр сравнения с величиной порога > - больше, < - меньше
+    structures.Alert.Comparator comparator = 4;
+    // Величина порога срабатываения
+    uint64 threshold = 5;
 }
 
-// findAll
-message FindAllRequest {
+message AddAlertResponse {
+    oneof result {
+        // Policy с созданным Alert
+        structures.Policy policy = 1;
+        Error error = 2;
+    }
+
+    message Error {
+        string message = 1;
+        ErrorCode code = 2;
+    }
+
+    enum ErrorCode {
+        _ = 0;
+        INVALID_NAME = 1;
+        CONDITIONS_ALREADY_EXIST = 2;
+    }
 }
 
-message FindAllResponse {
-    repeated structures.Alert alert = 1;
+message DeleteAlertRequest {
+    // Уникальный идентификатор Alert
+    uint64 id = 1;
+}
+
+message DeleteAlertResponse {
+    // Policy с удаленным Alert
+    structures.Policy policy = 1;
+}
+
+message GetAlertRequest {
+    uint64 id = 1;
+}
+
+message GetAlertResponse {
+    AlertData alert_data = 1;
+}
+
+message GetAlertListRequest {
+}
+
+message getAlertListResponse {
+    repeated AlertData alert_data = 1;
+}
+
+// Данные по Alert и интервалам когда он был активен
+message AlertData {
+    // Сам Alert
+    structures.Alert = 1;
+
+    // Интервалы когда Alert был активен
+    repeated DateInterval active_time = 2;
+
+    message DateInterval {
+        // Начало интервала
+        string date_from = 1;
+
+        // Конец интервала
+        string date_to = 2;
+    }
 }

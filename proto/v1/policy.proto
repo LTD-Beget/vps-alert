@@ -6,48 +6,58 @@ import "google/api/annotations.proto";
 import "proto/v1/structures.proto";
 
 service PolicyService {
+    // Получение Policy по ID
     rpc getPolicy (GetPolicyRequest) returns (GetPolicyResponse) {
         option (google.api.http) = {
             get: "/v1/vpsAlert/policy/{id}"
         };
     }
+
+    // Получение полного списка Policy
     rpc getPolicyList (GetPolicyListRequest) returns (GetPolicyListResponse) {
         option (google.api.http) = {
             get: "/v1/vpsAlert/policy"
         };
     }
+
+    // Создание Policy
     rpc createPolicy (CreatePolicyRequest) returns (CreatePolicyResponse) {
         option (google.api.http) = {
             post: "/v1/vpsAlert/policy"
         };
     }
 
+    // Переименовывание Policy по ID
     rpc renamePolicy (RenamePolicyRequest) returns (RenamePolicyResponse) {
         option (google.api.http) = {
             put: "/v1/vpsAlert/policy/{id}"
         };
     }
 
+    // Удаляние Policy по ID
     rpc deletePolicy (DeletePolicyRequest) returns (DeletePolicyResponse) {
         option (google.api.http) = {
             delete: "/v1/vpsAlert/policy/{id}"
         };
     }
 
+    // Линковка Policy к VPS
     rpc linkPolicy (LinkPolicyRequest) returns (LinkPolicyResponse) {
         option (google.api.http) = {
-            put: "/v1/vpsAlert/policy/{id}/linked"
+            put: "/v1/vpsAlert/policy/{id}/link"
         };
     }
 
+    // Отлинковка Policy от VPS
     rpc unlinkPolicy (UnlinkPolicyRequest) returns (UnlinkPolicyResponse) {
         option (google.api.http) = {
-            put: "/v1/vpsAlert/policy/{id}/unlinked"
+            put: "/v1/vpsAlert/policy/{id}/unlink"
         };
     }
 }
 
 message GetPolicyRequest {
+    // Уникальный идентификатор Policy
     string id = 1;
 }
 
@@ -63,6 +73,7 @@ message GetPolicyListResponse {
 }
 
 message CreatePolicyRequest {
+    // Имя Policy
     string name = 1;
 }
 
@@ -79,11 +90,12 @@ message CreatePolicyResponse {
 
     enum ErrorCode {
         _ = 0;
-        NAME_ALREADY_EXIST = 1;
+        INVALID_NAME = 1;
     }
 }
 
 message DeletePolicyRequest {
+    // Уникальный идентификатор Policy
     uint64 id = 1;
 }
 
@@ -91,7 +103,9 @@ message DeletePolicyResponse {
 }
 
 message RenamePolicyRequest {
+    // Уникальный идентификатор Policy
     uint64 id = 1;
+    // Имя Policy
     string name = 2;
 }
 
@@ -108,12 +122,14 @@ message RenamePolicyResponse {
 
     enum ErrorCode {
         _ = 0;
-        NAME_ALREADY_EXIST = 1;
+        INVALID_NAME = 1;
     }
 }
 
 message LinkPolicyRequest {
+    // Уникальный идентификатор Policy
     uint64 id = 1;
+    // Уникальный идентификатор VPS
     string vps_uuid = 2;
 }
 
@@ -133,9 +149,10 @@ message LinkPolicyResponse {
         VPS_ALREADY_HAVE_POLICY = 1;
     }
 }
-
 message UnlinkPolicyResponse {
+    // Уникальный идентификатор Policy
     uint64 id = 1;
+    // Уникальный идентификатор VPS
     string vps_uuid = 2;
 }
 

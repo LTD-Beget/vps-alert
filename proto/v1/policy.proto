@@ -3,7 +3,7 @@ syntax = "proto3";
 package beget.vpsAlert.v1.policy;
 
 import "google/api/annotations.proto";
-import "proto/v1/structures.proto";
+import "vps-alert/proto/v1/structures.proto";
 
 service PolicyService {
     // Получение Policy по ID

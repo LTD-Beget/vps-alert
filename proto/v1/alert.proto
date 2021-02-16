@@ -3,7 +3,7 @@ syntax = "proto3";
 package beget.vpsAlert.v1.alert;
 
 import "google/api/annotations.proto";
-import "proto/v1/structures/structures.proto";
+import "vps-alert/proto/v1/structures/structures.proto";
 
 service AlertService {
     // Добавленеи Alert к Policy
@@ -89,7 +89,7 @@ message GetAlertResponse {
 message GetAlertListRequest {
 }
 
-message getAlertListResponse {
+message GetAlertListResponse {
     repeated AlertData alert_data = 1;
 }
 

@@ -64,6 +64,7 @@ message AddAlertResponse {
         _ = 0;
         INVALID_NAME = 1;
         CONDITIONS_ALREADY_EXIST = 2;
+        OUT_OF_BOUNDS = 3;
     }
 }
 
@@ -95,7 +96,7 @@ message getAlertListResponse {
 // Данные по Alert и интервалам когда он был активен
 message AlertData {
     // Сам Alert
-    structures.Alert = 1;
+    structures.Alert alert = 1;
 
     // Интервалы когда Alert был активен
     repeated DateInterval active_time = 2;

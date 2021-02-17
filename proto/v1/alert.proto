@@ -46,6 +46,8 @@ message AddAlertRequest {
     structures.Alert.Comparator comparator = 4;
     // Величина порога срабатываения
     uint64 threshold = 5;
+    // Продолжительность условий срабатывания
+    structures.Alert.Duration duration = 6;
 }
 
 message AddAlertResponse {

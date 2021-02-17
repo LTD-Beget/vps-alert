@@ -22,8 +22,10 @@ message Alert {
     Metric metric = 3;
     // Параметр сравнения с величиной порога > - больше, < - меньше
     Comparator comparator = 4;
-    // Величина порога срабатываения
+    // Величина порога срабатывания
     uint64 threshold = 5;
+    // Продолжительность условий срабатывания
+    Duration duration = 6;
 
     enum Metric {
         CPU = 0;                   // Загрузка CPU (%)
@@ -37,8 +39,16 @@ message Alert {
         LA_5 = 8;                  // Load Average 5
         LA_15 = 15;                // Load Average 15
     }
+
     enum Comparator {
         GREATER = 0; // Знак больше >
         LESSER = 1;  // Знак меньше <
+    }
+
+    enum Duration {
+        MIN_5 = 0;
+        MIN_10 = 1;
+        MIN_30 = 2;
+        MIN_60 = 3;
     }
 }

@@ -149,14 +149,14 @@ message LinkPolicyResponse {
         VPS_ALREADY_HAVE_POLICY = 1;
     }
 }
-message UnlinkPolicyResponse {
+message UnlinkPolicyRequest {
     // Уникальный идентификатор Policy
     uint64 id = 1;
     // Уникальный идентификатор VPS
     string vps_uuid = 2;
 }
 
-message UnlinkPolicyRequest {
+message UnlinkPolicyResponse{
     oneof result {
         structures.Policy policy = 1;
         Error error = 2;

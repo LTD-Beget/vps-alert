@@ -58,7 +58,7 @@ service PolicyService {
 
 message GetPolicyRequest {
     // Уникальный идентификатор Policy
-    string id = 1;
+    uint64 id = 1;
 }
 
 message GetPolicyResponse {

@@ -10,6 +10,7 @@ service AlertService {
     rpc addAlert (AddAlertRequest) returns (AddAlertResponse) {
         option (google.api.http) = {
             post: "/v1/vpsAlert/alert"
+            body: "*"
         };
     }
 

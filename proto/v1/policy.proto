@@ -24,6 +24,7 @@ service PolicyService {
     rpc createPolicy (CreatePolicyRequest) returns (CreatePolicyResponse) {
         option (google.api.http) = {
             post: "/v1/vpsAlert/policy"
+            body: "*"
         };
     }
 
@@ -31,6 +32,7 @@ service PolicyService {
     rpc renamePolicy (RenamePolicyRequest) returns (RenamePolicyResponse) {
         option (google.api.http) = {
             put: "/v1/vpsAlert/policy/{id}"
+            body: "*"
         };
     }
 
@@ -45,6 +47,7 @@ service PolicyService {
     rpc linkPolicy (LinkPolicyRequest) returns (LinkPolicyResponse) {
         option (google.api.http) = {
             put: "/v1/vpsAlert/policy/{id}/link"
+            body: "*"
         };
     }
 
@@ -52,6 +55,7 @@ service PolicyService {
     rpc unlinkPolicy (UnlinkPolicyRequest) returns (UnlinkPolicyResponse) {
         option (google.api.http) = {
             put: "/v1/vpsAlert/policy/{id}/unlink"
+            body: "*"
         };
     }
 }

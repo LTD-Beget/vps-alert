@@ -34,6 +34,27 @@ service AlertService {
             get: "/v1/vpsAlert/alert"
         };
     }
+
+    // Получение полной истории срабатываний конкретного Alert
+    rpc getAlertHistory (GetAlertHistoryRequest) returns (GetAlertHistoryResponse) {
+        option (google.api.http) = {
+            get: "/v1/vpsAlert/alert/history/{id}"
+        };
+    }
+
+    // Получение полной истории срабатываний по существующим Alert
+    rpc getAlertHistoryList (GetAlertHistoryListRequest) returns (GetAlertHistoryListResponse) {
+        option (google.api.http) = {
+            get: "/v1/vpsAlert/alert/history"
+        };
+    }
+
+    // Получение полного списка активных Alert
+    rpc getActiveAlertList (GetActiveAlertListRequest) returns (GetActiveAlertListResponse) {
+        option (google.api.http) = {
+            get: "/v1/vpsAlert/alert/active"
+        };
+    }
 }
 
 message AddAlertRequest {
@@ -86,13 +107,36 @@ message GetAlertRequest {
 }
 
 message GetAlertResponse {
-    AlertData alert_data = 1;
+    structures.Alert alert = 1;
 }
 
 message GetAlertListRequest {
 }
 
 message GetAlertListResponse {
+    repeated structures.Alert alert = 1;
+}
+
+
+message GetAlertHistoryRequest {
+    uint64 id = 1;
+}
+
+message GetAlertHistoryResponse {
+    AlertData alert_data = 1;
+}
+
+message GetAlertHistoryListRequest {
+}
+
+message GetAlertHistoryListResponse {
+    repeated AlertData alert_data = 1;
+}
+
+message GetActiveAlertListRequest {
+}
+
+message GetActiveAlertListResponse {
     repeated AlertData alert_data = 1;
 }
 

@@ -14,31 +14,10 @@ service AlertService {
         };
     }
 
-    // Удаление Alert по ID
-    rpc deleteAlert (DeleteAlertRequest) returns (DeleteAlertResponse) {
-        option (google.api.http) = {
-            delete: "/v1/vpsAlert/alert/{id}"
-        };
-    }
-
-    // Получение Alert по ID
-    rpc getAlert (GetAlertRequest) returns (GetAlertResponse) {
-        option (google.api.http) = {
-            get: "/v1/vpsAlert/alert/{id}"
-        };
-    }
-
     // Получение полного списка Alert
     rpc getAlertList (GetAlertListRequest) returns (GetAlertListResponse) {
         option (google.api.http) = {
             get: "/v1/vpsAlert/alert"
-        };
-    }
-
-    // Получение полной истории срабатываний конкретного Alert
-    rpc getAlertHistory (GetAlertHistoryRequest) returns (GetAlertHistoryResponse) {
-        option (google.api.http) = {
-            get: "/v1/vpsAlert/alert/history/{id}"
         };
     }
 
@@ -53,6 +32,27 @@ service AlertService {
     rpc getActiveAlertList (GetActiveAlertListRequest) returns (GetActiveAlertListResponse) {
         option (google.api.http) = {
             get: "/v1/vpsAlert/alert/active"
+        };
+    }
+
+    // Удаление Alert по ID
+    rpc deleteAlert (DeleteAlertRequest) returns (DeleteAlertResponse) {
+        option (google.api.http) = {
+            delete: "/v1/vpsAlert/alert/{id}"
+        };
+    }
+
+    // Получение Alert по ID
+    rpc getAlert (GetAlertRequest) returns (GetAlertResponse) {
+        option (google.api.http) = {
+            get: "/v1/vpsAlert/alert/{id}"
+        };
+    }
+
+    // Получение полной истории срабатываний конкретного Alert
+    rpc getAlertHistory (GetAlertHistoryRequest) returns (GetAlertHistoryResponse) {
+        option (google.api.http) = {
+            get: "/v1/vpsAlert/alert/history/{id}"
         };
     }
 }

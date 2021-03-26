@@ -29,10 +29,10 @@ service NotificationService {
     }
 }
 
-message GetSubscribeRequest {
+message GetSubscriptionRequest {
 }
 
-message GetSubscribeResponse {
+message GetSubscriptionResponse {
     structures.Subscription subscription = 1;
 }
 
@@ -51,8 +51,6 @@ message SubscribeRequest {
 }
 
 message SubscribeResponse {
-    structures.Subscription subscription = 1;
-
     oneof result {
         structures.Subscription subscription = 1;
         Error error = 2;

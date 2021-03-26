@@ -52,3 +52,10 @@ message Alert {
         MIN_60 = 3;
     }
 }
+// Подписка на уведомления об Alert
+message Subscription {
+    // Уведомления в telegram
+    bool telegram = 1;
+    // Уведомления по почте
+    bool email = 2;
+}

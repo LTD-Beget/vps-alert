@@ -40,10 +40,11 @@ message SubscribeRequest {
     oneof type {
         // Policy с созданным Alert
         Email email = 1;
-        Telegram Telegram = 2;
+        Telegram telegram = 2;
     }
 
-    message Email {}
+    message Email {
+    }
 
     message Telegram {
         string token = 1;

@@ -145,9 +145,12 @@ message AlertData {
     // Сам Alert
     structures.Alert alert = 1;
     // VPS
-    string vps_uuid = 3;
-    // Интервалы когда Alert был активен
-    repeated DateInterval active_time = 2;
+    repeated Data data = 2;
+
+    message Data {
+        string vps_uuid = 1;
+        repeated DateInterval active_time = 2;
+    }
 
     message DateInterval {
         // Начало интервала

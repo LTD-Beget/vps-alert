@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package beget.vpsAlert.v1.telegram;
+
+import "google/api/annotations.proto";
+
+service TelegramService {
+    // Сгенерировать ссылку для телеграм бота
+    rpc generateInviteLink (GenerateInviteLinkRequest) returns (GenerateInviteLinkResponse) {
+        option (google.api.http) = {
+            post: "/v1/vpsAlert/telegram/invite"
+        };
+    }
+}
+
+message GenerateInviteLinkRequest {
+}
+
+message GenerateInviteLinkResponse {
+   string link = 1;
+}

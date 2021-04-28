@@ -16,15 +16,16 @@ service NotificationService {
     // Подписаться что бы получать уведомления
     rpc subscribe (SubscribeRequest) returns (SubscribeResponse) {
         option (google.api.http) = {
-            post: "/v1/vpsAlert/subscription"
-
+            put: "/v1/vpsAlert/notification/enable"
+            body: "*"
         };
     }
 
     // Отписаться что бы не получать уведомления
     rpc unsubscribe (UnsubscribeRequest) returns (UnsubscribeResponse) {
         option (google.api.http) = {
-            delete: "/v1/vpsAlert/subscription"
+            put: "/v1/vpsAlert/notification/disable"
+            body: "*"
         };
     }
 }
@@ -37,42 +38,23 @@ message GetSubscriptionResponse {
 }
 
 message SubscribeRequest {
-    oneof type {
-        // Policy с созданным Alert
-        Email email = 1;
-        Telegram telegram = 2;
-    }
+    repeated Type types = 1;
 
-    message Email {
-    }
-
-    message Telegram {
-        string token = 1;
+    enum Type {
+        EMAIL = 0;
+        TELEGRAM = 1;
     }
 }
 
 message SubscribeResponse {
-    oneof result {
-        structures.Subscription subscription = 1;
-        Error error = 2;
-    }
-
-    message Error {
-        string message = 1;
-        ErrorCode code = 2;
-    }
-
-    enum ErrorCode {
-        _ = 0;
-        INVALID_TOKEN = 2;
-    }
+    structures.Subscription subscription = 1;
 }
 
 message GetSubscribeRequest {
 }
 
 message UnsubscribeRequest {
-    Type type = 1;
+    repeated Type types = 1;
 
     enum Type {
         EMAIL = 0;

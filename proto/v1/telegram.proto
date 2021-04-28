@@ -33,7 +33,7 @@ message GenerateInviteLinkResponse {
 message GetInviteLinkRequest {
 }
 
-message GenerateInviteLinkResponse {
+message GetInviteLinkResponse {
     string link = 1;
 }
 

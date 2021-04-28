@@ -92,7 +92,7 @@ message CreatePolicyResponse {
 
         message ValidationError {
             string name = 1;
-            ErrorCode = 2;
+            ErrorCode code = 2;
         }
         enum ErrorCode {
             _ = 0;
@@ -149,7 +149,7 @@ message UpdatePolicyResponse {
 
         message ValidationError {
             string name = 1;
-            ErrorCode = 2;
+            ErrorCode code = 2;
         }
         enum ErrorCode {
             _ = 0;

@@ -1,43 +1,43 @@
 syntax = "proto3";
 
-package beget.vpsAlert.v1.notification;
+package beget.vpsAlert.v1.notifications;
 
 import "google/api/annotations.proto";
 import "vps-alert/proto/v1/structures.proto";
 
-service NotificationService {
+service NotificationsService {
     // Получить текущую подписку уведомлений для получения Alert
-    rpc getSubscription (GetSubscriptionRequest) returns (GetSubscriptionResponse) {
+    rpc getNotificationsStatus (GetNotificationsStatusRequest) returns (GetNotificationsStatusResponse) {
         option (google.api.http) = {
-            get: "/v1/vpsAlert/subscription"
+            get: "/v1/vpsAlert/notifications"
         };
     }
 
     // Подписаться что бы получать уведомления
-    rpc subscribe (SubscribeRequest) returns (SubscribeResponse) {
+    rpc enableNotifications (EnableNotificationsRequest) returns (EnableNotificationsResponse) {
         option (google.api.http) = {
-            put: "/v1/vpsAlert/notification/enable"
+            put: "/v1/vpsAlert/notifications/enable"
             body: "*"
         };
     }
 
     // Отписаться что бы не получать уведомления
-    rpc unsubscribe (UnsubscribeRequest) returns (UnsubscribeResponse) {
+    rpc disableNotifications (DisableNotificationsRequest) returns (DisableNotificationsResponse) {
         option (google.api.http) = {
-            put: "/v1/vpsAlert/notification/disable"
+            put: "/v1/vpsAlert/notifications/disable"
             body: "*"
         };
     }
 }
 
-message GetSubscriptionRequest {
+message GetNotificationsStatusRequest {
 }
 
-message GetSubscriptionResponse {
-    structures.Subscription subscription = 1;
+message GetNotificationsStatusResponse {
+    structures.Notifications notifications = 1;
 }
 
-message SubscribeRequest {
+message EnableNotificationsRequest {
     repeated Type types = 1;
 
     enum Type {
@@ -46,14 +46,11 @@ message SubscribeRequest {
     }
 }
 
-message SubscribeResponse {
-    structures.Subscription subscription = 1;
+message EnableNotificationsResponse {
+    structures.Notifications notifications = 1;
 }
 
-message GetSubscribeRequest {
-}
-
-message UnsubscribeRequest {
+message DisableNotificationsRequest {
     repeated Type types = 1;
 
     enum Type {
@@ -62,6 +59,6 @@ message UnsubscribeRequest {
     }
 }
 
-message UnsubscribeResponse {
-    structures.Subscription subscription = 1;
+message DisableNotificationsResponse {
+    structures.Notifications notifications = 1;
 }

@@ -66,19 +66,6 @@ message CreatePolicyRequest {
 
     repeated Alert alert = 2;
     repeated string vps_uuid = 3;
-
-    message Alert {
-        // Имя Alert
-        string name = 1;
-        // Метрика для которой выполняются условия алерта
-        structures.Alert.Metric metric = 2;
-        // Параметр сравнения с величиной порога > - больше, < - меньше
-        structures.Alert.Comparator comparator = 3;
-        // Величина порога срабатываения
-        uint64 threshold = 4;
-        // Продолжительность условий срабатывания
-        structures.Alert.Duration duration = 5;
-    }
 }
 
 message CreatePolicyResponse {
@@ -123,19 +110,6 @@ message UpdatePolicyRequest {
 
     repeated Alert alert = 3;
     repeated string vps_uuid = 4;
-
-    message Alert {
-        // Имя Alert
-        string name = 1;
-        // Метрика для которой выполняются условия алерта
-        structures.Alert.Metric metric = 2;
-        // Параметр сравнения с величиной порога > - больше, < - меньше
-        structures.Alert.Comparator comparator = 3;
-        // Величина порога срабатываения
-        uint64 threshold = 4;
-        // Продолжительность условий срабатывания
-        structures.Alert.Duration duration = 5;
-    }
 }
 
 message UpdatePolicyResponse {
@@ -162,4 +136,17 @@ message UpdatePolicyResponse {
             VPS_ALREADY_HAVE_POLICY = 7;
         }
     }
+}
+
+message Alert {
+    // Имя Alert
+    string name = 1;
+    // Метрика для которой выполняются условия алерта
+    structures.Alert.Metric metric = 2;
+    // Параметр сравнения с величиной порога > - больше, < - меньше
+    structures.Alert.Comparator comparator = 3;
+    // Величина порога срабатываения
+    uint64 threshold = 4;
+    // Продолжительность условий срабатывания
+    structures.Alert.Duration duration = 5;
 }

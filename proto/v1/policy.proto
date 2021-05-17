@@ -64,7 +64,7 @@ message CreatePolicyRequest {
     // Имя Policy
     string name = 1;
 
-    repeated Alert alert = 2;
+    repeated AlertDetail alert = 2;
     repeated string vps_uuid = 3;
 }
 
@@ -108,7 +108,7 @@ message UpdatePolicyRequest {
     // Имя Policy
     string name = 2;
 
-    repeated Alert alert = 3;
+    repeated AlertDetail alert = 3;
     repeated string vps_uuid = 4;
 }
 
@@ -138,7 +138,7 @@ message UpdatePolicyResponse {
     }
 }
 
-message Alert {
+message AlertDetail {
     // Имя Alert
     string name = 1;
     // Метрика для которой выполняются условия алерта

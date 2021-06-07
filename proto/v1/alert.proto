@@ -6,17 +6,11 @@ import "google/api/annotations.proto";
 import "vps-alert/proto/v1/structures.proto";
 
 service AlertService {
-    // Получение полного списка Alert
-    rpc getAlertList (GetAlertListRequest) returns (GetAlertListResponse) {
-        option (google.api.http) = {
-            get: "/v1/vpsAlert/alert"
-        };
-    }
-
     // Получение полной истории срабатываний по существующим Alert
     rpc getAlertHistoryList (GetAlertHistoryListRequest) returns (GetAlertHistoryListResponse) {
         option (google.api.http) = {
-            get: "/v1/vpsAlert/alert/history"
+            post: "/v1/vpsAlert/alert/history"
+            body: "*"
         };
     }
 
@@ -26,47 +20,40 @@ service AlertService {
             get: "/v1/vpsAlert/alert/active"
         };
     }
-
-    // Получение Alert по ID
-    rpc getAlert (GetAlertRequest) returns (GetAlertResponse) {
-        option (google.api.http) = {
-            get: "/v1/vpsAlert/alert/{id}"
-        };
-    }
-
-    // Получение полной истории срабатываний конкретного Alert
-    rpc getAlertHistory (GetAlertHistoryRequest) returns (GetAlertHistoryResponse) {
-        option (google.api.http) = {
-            get: "/v1/vpsAlert/alert/history/{id}"
-        };
-    }
-}
-
-message GetAlertRequest {
-    uint64 id = 1;
-}
-
-message GetAlertResponse {
-    structures.Alert alert = 1;
-}
-
-message GetAlertListRequest {
-}
-
-message GetAlertListResponse {
-    repeated structures.Alert alert = 1;
-}
-
-
-message GetAlertHistoryRequest {
-    uint64 id = 1;
-}
-
-message GetAlertHistoryResponse {
-    AlertData alert_data = 1;
 }
 
 message GetAlertHistoryListRequest {
+    repeated SearchScope scope = 1;
+    uint32 page = 2;
+    uint32 page_size = 3;
+
+    message SearchScope {
+        oneof condition {
+            // Поиск по доменному имени(полное совпадение)
+            ByVpsUUID by_vps_uuid = 1;
+            // По ID клиента
+            ByMetric by_metric = 2;
+            // Только продленные
+            ByDateInterval by_activated_at = 10;
+        }
+
+        message ByVpsUUID {
+            repeated string uuid = 1;
+        }
+
+        message ByDateInterval {
+            // Начало интервала
+            string date_from = 1;
+
+            // Конец интервала
+            string date_to = 2;
+        }
+
+        message ByMetric {
+            repeated structures.Alert.Metric metric = 1;
+        }
+
+    }
 }
 
 message GetAlertHistoryListResponse {

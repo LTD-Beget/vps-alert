@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package beget.vpsAlert.v1.notifications;
+
+import "google/api/annotations.proto";
+import "vps-alert/proto/v1/structures.proto";
+
+service NotificationsService {
+    // Получить текущую подписку уведомлений для получения Alert
+    rpc getNotificationsStatus (GetNotificationsStatusRequest) returns (GetNotificationsStatusResponse) {
+        option (google.api.http) = {
+            get: "/v1/vpsAlert/notifications"
+        };
+    }
+
+    // Подписаться что бы получать уведомления
+    rpc enableNotifications (EnableNotificationsRequest) returns (EnableNotificationsResponse) {
+        option (google.api.http) = {
+            put: "/v1/vpsAlert/notifications/enable"
+            body: "*"
+        };
+    }
+
+    // Отписаться что бы не получать уведомления
+    rpc disableNotifications (DisableNotificationsRequest) returns (DisableNotificationsResponse) {
+        option (google.api.http) = {
+            put: "/v1/vpsAlert/notifications/disable"
+            body: "*"
+        };
+    }
+}
+
+message GetNotificationsStatusRequest {
+}
+
+message GetNotificationsStatusResponse {
+    structures.Notifications notifications = 1;
+}
+
+message EnableNotificationsRequest {
+    repeated Type types = 1;
+
+    enum Type {
+        EMAIL = 0;
+        TELEGRAM = 1;
+    }
+}
+
+message EnableNotificationsResponse {
+    structures.Notifications notifications = 1;
+}
+
+message DisableNotificationsRequest {
+    repeated Type types = 1;
+
+    enum Type {
+        EMAIL = 0;
+        TELEGRAM = 1;
+    }
+}
+
+message DisableNotificationsResponse {
+    structures.Notifications notifications = 1;
+}

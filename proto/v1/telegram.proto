@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package beget.vpsAlert.v1.telegram;
+
+import "google/api/annotations.proto";
+
+service TelegramService {
+    rpc getInviteLink (GetInviteLinkRequest) returns (GetInviteLinkResponse) {
+        option (google.api.http) = {
+            get: "/v1/vpsAlert/telegram/invite"
+        };
+    }
+    rpc getSubscribesCount(GetSubscribesCountRequest) returns (GetSubscribesCountResponse) {
+        option (google.api.http) = {
+            get: "/v1/vpsAlert/telegram/subscribes"
+        };
+    }
+    // Сгенерировать ссылку для телеграм бота
+    rpc generateInviteLink (GenerateInviteLinkRequest) returns (GenerateInviteLinkResponse) {
+        option (google.api.http) = {
+            post: "/v1/vpsAlert/telegram/invite"
+        };
+    }
+}
+
+message GenerateInviteLinkRequest {
+}
+
+message GenerateInviteLinkResponse {
+   string link = 1;
+}
+
+message GetInviteLinkRequest {
+}
+
+message GetInviteLinkResponse {
+    string link = 1;
+}
+
+message GetSubscribesCountRequest {
+}
+
+message GetSubscribesCountResponse {
+    uint64 count = 1;
+}

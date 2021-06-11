@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package beget.vpsAlert.v1.alert;
+
+import "google/api/annotations.proto";
+import "vps-alert/proto/v1/structures.proto";
+
+service AlertService {
+    // Получение полной истории срабатываний по существующим Alert
+    rpc getAlertHistoryList (GetAlertHistoryListRequest) returns (GetAlertHistoryListResponse) {
+        option (google.api.http) = {
+            post: "/v1/vpsAlert/alert/history"
+            body: "*"
+        };
+    }
+
+    // Получение полного списка активных Alert
+    rpc getActiveAlertList (GetActiveAlertListRequest) returns (GetActiveAlertListResponse) {
+        option (google.api.http) = {
+            get: "/v1/vpsAlert/alert/active"
+        };
+    }
+}
+
+message GetAlertHistoryListRequest {
+    repeated SearchScope scope = 1;
+    uint32 page = 2;
+    uint32 page_size = 3;
+
+    message SearchScope {
+        oneof condition {
+            // Поиск по доменному имени(полное совпадение)
+            ByVpsUUID by_vps_uuid = 1;
+            // По ID клиента
+            ByMetric by_metric = 2;
+            // Только продленные
+            ByDateInterval by_activated_at = 10;
+        }
+
+        message ByVpsUUID {
+            repeated string uuid = 1;
+        }
+
+        message ByDateInterval {
+            // Начало интервала
+            string date_from = 1;
+
+            // Конец интервала
+            string date_to = 2;
+        }
+
+        message ByMetric {
+            repeated structures.Alert.Metric metric = 1;
+        }
+
+    }
+}
+
+message GetAlertHistoryListResponse {
+    repeated AlertData alert_data = 1;
+}
+
+message GetActiveAlertListRequest {
+}
+
+message GetActiveAlertListResponse {
+    repeated AlertData alert_data = 1;
+}
+
+// Данные по Alert и интервалам когда он был активен
+message AlertData {
+    // Сам Alert
+    structures.Alert alert = 1;
+    // VPS
+    repeated Data data = 2;
+
+    message Data {
+        string vps_uuid = 1;
+        repeated DateInterval active_time = 2;
+    }
+
+    message DateInterval {
+        // Начало интервала
+        string date_from = 1;
+
+        // Конец интервала
+        string date_to = 2;
+    }
+}

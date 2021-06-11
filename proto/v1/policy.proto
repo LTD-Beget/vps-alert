@@ -1,0 +1,152 @@
+syntax = "proto3";
+
+package beget.vpsAlert.v1.policy;
+
+import "google/api/annotations.proto";
+import "vps-alert/proto/v1/structures.proto";
+
+service PolicyService {
+    // Получение Policy по ID
+    rpc getPolicy (GetPolicyRequest) returns (GetPolicyResponse) {
+        option (google.api.http) = {
+            get: "/v1/vpsAlert/policy/{id}"
+        };
+    }
+
+    // Получение полного списка Policy
+    rpc getPolicyList (GetPolicyListRequest) returns (GetPolicyListResponse) {
+        option (google.api.http) = {
+            get: "/v1/vpsAlert/policy"
+        };
+    }
+
+    // Создание Policy
+    rpc createPolicy (CreatePolicyRequest) returns (CreatePolicyResponse) {
+        option (google.api.http) = {
+            post: "/v1/vpsAlert/policy"
+            body: "*"
+        };
+    }
+
+    // Переименовывание Policy по ID
+    rpc updatePolicy (UpdatePolicyRequest) returns (UpdatePolicyResponse) {
+        option (google.api.http) = {
+            put: "/v1/vpsAlert/policy/{id}"
+            body: "*"
+        };
+    }
+
+    // Удаляние Policy по ID
+    rpc deletePolicy (DeletePolicyRequest) returns (DeletePolicyResponse) {
+        option (google.api.http) = {
+            delete: "/v1/vpsAlert/policy/{id}"
+        };
+    }
+}
+
+message GetPolicyRequest {
+    // Уникальный идентификатор Policy
+    uint64 id = 1;
+}
+
+message GetPolicyResponse {
+    structures.Policy policy = 1;
+}
+
+message GetPolicyListRequest {
+}
+
+message GetPolicyListResponse {
+    repeated structures.Policy policy = 1;
+}
+
+message CreatePolicyRequest {
+    // Имя Policy
+    string name = 1;
+
+    repeated AlertDetails alert = 2;
+    repeated string vps_uuid = 3;
+}
+
+message CreatePolicyResponse {
+    oneof result {
+        structures.Policy policy = 1;
+        Error error = 2;
+    }
+
+    message Error {
+        repeated ValidationError validation_errors = 1;
+
+        message ValidationError {
+            string name = 1;
+            ErrorCode code = 2;
+        }
+        enum ErrorCode {
+            _ = 0;
+            INVALID_POLICY_NAME = 1;
+            EMPTY_POLICY = 2;
+            INVALID_ALERT_NAME = 3;
+            CONDITIONS_ALREADY_EXIST = 4;
+            OUT_OF_BOUNDS = 5;
+            VPS_NOT_FOUND = 6;
+            VPS_ALREADY_HAVE_POLICY = 7;
+        }
+    }
+}
+
+message DeletePolicyRequest {
+    // Уникальный идентификатор Policy
+    uint64 id = 1;
+}
+
+message DeletePolicyResponse {
+}
+
+message UpdatePolicyRequest {
+    // Уникальный идентификатор Policy
+    uint64 id = 1;
+    // Имя Policy
+    string name = 2;
+
+    repeated AlertDetails alert = 3;
+    repeated string vps_uuid = 4;
+}
+
+message UpdatePolicyResponse {
+    oneof result {
+        structures.Policy policy = 1;
+        Error error = 2;
+    }
+
+    message Error {
+        repeated ValidationError validation_errors = 1;
+
+        message ValidationError {
+            string name = 1;
+            ErrorCode code = 2;
+        }
+        enum ErrorCode {
+            _ = 0;
+            INVALID_POLICY_NAME = 1;
+            EMPTY_POLICY = 2;
+            INVALID_ALERT_NAME = 3;
+            CONDITIONS_ALREADY_EXIST = 4;
+            OUT_OF_BOUNDS = 5;
+            VPS_NOT_FOUND = 6;
+            VPS_ALREADY_HAVE_POLICY = 7;
+        }
+    }
+}
+
+message AlertDetails {
+    // Имя Alert
+    string name = 1;
+    // Метрика для которой выполняются условия алерта
+    structures.Alert.Metric metric = 2;
+    // Параметр сравнения с величиной порога > - больше, < - меньше
+    structures.Alert.Comparator comparator = 3;
+    // Величина порога срабатываения
+    uint64 threshold = 4;
+    // Продолжительность условий срабатывания
+    structures.Alert.Duration duration = 5;
+}

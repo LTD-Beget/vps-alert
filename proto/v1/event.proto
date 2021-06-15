@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package beget.vpsAlert.v1.event;
 
-// vps.alert.activated
+// vps.alert.fired
 message VpsAlertFiredEvent {
     // VPS для которой отработал Alert
     string vps_uuid = 1;

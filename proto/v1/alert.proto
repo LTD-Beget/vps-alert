@@ -13,13 +13,6 @@ service AlertService {
             body: "*"
         };
     }
-
-    // Получение полного списка активных Alert
-    rpc getActiveAlertList (GetActiveAlertListRequest) returns (GetActiveAlertListResponse) {
-        option (google.api.http) = {
-            get: "/v1/vpsAlert/alert/active"
-        };
-    }
 }
 
 message GetAlertHistoryListRequest {
@@ -29,12 +22,14 @@ message GetAlertHistoryListRequest {
 
     message SearchScope {
         oneof condition {
-            // Поиск по доменному имени(полное совпадение)
+            // ПО VPS_UUID
             ByVpsUUID by_vps_uuid = 1;
-            // По ID клиента
+            // По типу Метрики
             ByMetric by_metric = 2;
-            // Только продленные
-            ByDateInterval by_activated_at = 10;
+            // По временному интервалу
+            ByDateInterval by_activated_at = 3;
+            // Только активные
+            OnlyActive only_active = 4;
         }
 
         message ByVpsUUID {
@@ -53,31 +48,20 @@ message GetAlertHistoryListRequest {
             repeated structures.Alert.Metric metric = 1;
         }
 
+        message OnlyActive {
+
+        }
     }
 }
 
 message GetAlertHistoryListResponse {
-    repeated AlertData alert_data = 1;
+    repeated AlertHistory alert_history = 1;
 }
 
-message GetActiveAlertListRequest {
-}
-
-message GetActiveAlertListResponse {
-    repeated AlertData alert_data = 1;
-}
-
-// Данные по Alert и интервалам когда он был активен
-message AlertData {
-    // Сам Alert
-    structures.Alert alert = 1;
-    // VPS
-    repeated Data data = 2;
-
-    message Data {
-        string vps_uuid = 1;
-        repeated DateInterval active_time = 2;
-    }
+message AlertHistory {
+    string vps_uuid = 1;
+    string alert_name = 2;
+    DateInterval active_time = 3;
 
     message DateInterval {
         // Начало интервала

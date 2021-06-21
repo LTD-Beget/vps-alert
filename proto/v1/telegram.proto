@@ -7,18 +7,18 @@ import "google/api/annotations.proto";
 service TelegramService {
     rpc getInviteLink (GetInviteLinkRequest) returns (GetInviteLinkResponse) {
         option (google.api.http) = {
-            get: "/v1/vpsAlert/telegram/invite"
+            get: "/v1/vps/alert/telegram/invite"
         };
     }
     rpc getSubscribesCount(GetSubscribesCountRequest) returns (GetSubscribesCountResponse) {
         option (google.api.http) = {
-            get: "/v1/vpsAlert/telegram/subscribes"
+            get: "/v1/vps/alert/telegram/subscribes"
         };
     }
     // Сгенерировать ссылку для телеграм бота
     rpc generateInviteLink (GenerateInviteLinkRequest) returns (GenerateInviteLinkResponse) {
         option (google.api.http) = {
-            post: "/v1/vpsAlert/telegram/invite"
+            post: "/v1/vps/alert/telegram/invite"
         };
     }
 }

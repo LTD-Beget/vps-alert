@@ -9,7 +9,7 @@ service AlertService {
     // Получение полной истории срабатываний по существующим Alert
     rpc getAlertHistoryList (GetAlertHistoryListRequest) returns (GetAlertHistoryListResponse) {
         option (google.api.http) = {
-            post: "/v1/vpsAlert/alert/history"
+            post: "/v1/vps/alert/history"
             body: "*"
         };
     }

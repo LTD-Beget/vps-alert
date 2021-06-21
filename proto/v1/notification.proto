@@ -9,14 +9,14 @@ service NotificationsService {
     // Получить текущую подписку уведомлений для получения Alert
     rpc getNotificationsStatus (GetNotificationsStatusRequest) returns (GetNotificationsStatusResponse) {
         option (google.api.http) = {
-            get: "/v1/vpsAlert/notifications"
+            get: "/v1/vps/alert/notifications"
         };
     }
 
     // Подписаться что бы получать уведомления
     rpc enableNotifications (EnableNotificationsRequest) returns (EnableNotificationsResponse) {
         option (google.api.http) = {
-            put: "/v1/vpsAlert/notifications/enable"
+            put: "/v1/vps/alert/notifications/enable"
             body: "*"
         };
     }
@@ -24,7 +24,7 @@ service NotificationsService {
     // Отписаться что бы не получать уведомления
     rpc disableNotifications (DisableNotificationsRequest) returns (DisableNotificationsResponse) {
         option (google.api.http) = {
-            put: "/v1/vpsAlert/notifications/disable"
+            put: "/v1/vps/alert/notifications/disable"
             body: "*"
         };
     }

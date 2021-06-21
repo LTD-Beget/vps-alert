@@ -9,21 +9,21 @@ service PolicyService {
     // Получение Policy по ID
     rpc getPolicy (GetPolicyRequest) returns (GetPolicyResponse) {
         option (google.api.http) = {
-            get: "/v1/vpsAlert/policy/{id}"
+            get: "/v1/vps/alert/policy/{id}"
         };
     }
 
     // Получение полного списка Policy
     rpc getPolicyList (GetPolicyListRequest) returns (GetPolicyListResponse) {
         option (google.api.http) = {
-            get: "/v1/vpsAlert/policy"
+            get: "/v1/vps/alert/policy"
         };
     }
 
     // Создание Policy
     rpc createPolicy (CreatePolicyRequest) returns (CreatePolicyResponse) {
         option (google.api.http) = {
-            post: "/v1/vpsAlert/policy"
+            post: "/v1/vps/alert/policy"
             body: "*"
         };
     }
@@ -31,7 +31,7 @@ service PolicyService {
     // Переименовывание Policy по ID
     rpc updatePolicy (UpdatePolicyRequest) returns (UpdatePolicyResponse) {
         option (google.api.http) = {
-            put: "/v1/vpsAlert/policy/{id}"
+            put: "/v1/vps/alert/policy/{id}"
             body: "*"
         };
     }
@@ -39,7 +39,7 @@ service PolicyService {
     // Удаляние Policy по ID
     rpc deletePolicy (DeletePolicyRequest) returns (DeletePolicyResponse) {
         option (google.api.http) = {
-            delete: "/v1/vpsAlert/policy/{id}"
+            delete: "/v1/vps/alert/policy/{id}"
         };
     }
 }

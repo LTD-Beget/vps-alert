@@ -23,7 +23,7 @@ message Alert {
     // Параметр сравнения с величиной порога > - больше, < - меньше
     Comparator comparator = 4;
     // Величина порога срабатывания
-    uint64 threshold = 5;
+    double threshold = 5;
     // Продолжительность условий срабатывания
     Duration duration = 6;
 

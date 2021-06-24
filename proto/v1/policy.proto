@@ -90,6 +90,7 @@ message CreatePolicyResponse {
             OUT_OF_BOUNDS = 5;
             VPS_NOT_FOUND = 6;
             VPS_ALREADY_HAVE_POLICY = 7;
+            MAX_ALERTS_COUNT = 8;
         }
     }
 }
@@ -134,6 +135,7 @@ message UpdatePolicyResponse {
             OUT_OF_BOUNDS = 5;
             VPS_NOT_FOUND = 6;
             VPS_ALREADY_HAVE_POLICY = 7;
+            MAX_ALERTS_COUNT = 8;
         }
     }
 }
@@ -146,7 +148,7 @@ message AlertDetails {
     // Параметр сравнения с величиной порога > - больше, < - меньше
     structures.Alert.Comparator comparator = 3;
     // Величина порога срабатываения
-    uint64 threshold = 4;
+    double threshold = 4;
     // Продолжительность условий срабатывания
     structures.Alert.Duration duration = 5;
 }

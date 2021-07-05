@@ -4,14 +4,6 @@ package beget.vpsAlert.v1.event;
 
 // vps.alert.fired
 message VpsAlertFiredEvent {
-    // VPS для которой отработал Alert
-    string vps_uuid = 1;
-    // ID Alert который стал активным
-    uint64 alert_id = 2;
-    // ID Policy к которой принадлежит Alert
-    uint64 policy_id = 3;
-    // Имя Alert который стал активным
-    string alert_name = 4;
-    // Имя Policy к которой принадлежит Alert
-    string policy_name = 5;
+    // Идентификатор истории срабатывания Alert
+    uint64 id = 1;
 }

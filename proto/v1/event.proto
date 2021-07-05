@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-package beget.vpsAlert.v1.event;
-
-// vps.alert.fired
-message VpsAlertFiredEvent {
-    // Идентификатор истории срабатывания Alert
-    uint64 id = 1;
-}

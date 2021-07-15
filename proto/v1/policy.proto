@@ -151,4 +151,7 @@ message AlertDetails {
     double threshold = 4;
     // Продолжительность условий срабатывания
     structures.Alert.Duration duration = 5;
+    // Число определяющие порядок сортировки Alert в Policy
+    // Не участвует в логике срабатываний, нужно только для визуализации последовательности отрисовки
+    uint32 sort_weight = 6;
 }

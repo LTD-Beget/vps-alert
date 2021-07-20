@@ -56,6 +56,8 @@ message GetAlertHistoryListRequest {
 
 message GetAlertHistoryListResponse {
     repeated AlertHistory alert_history = 1;
+    // Количество Alert удовлетворяющих условиям поиска
+    uint32 count = 5;
 }
 
 message AlertHistory {
@@ -63,8 +65,6 @@ message AlertHistory {
     string alert_name = 2;
     DateInterval active_time = 3;
     string vps_name = 4;
-    // Количество Alert удовлетворяющих условиям поиска
-    uint32 count = 5;
 
     message DateInterval {
         // Начало интервала

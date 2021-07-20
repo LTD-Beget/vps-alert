@@ -56,6 +56,8 @@ message GetAlertHistoryListRequest {
 
 message GetAlertHistoryListResponse {
     repeated AlertHistory alert_history = 1;
+    // Количество Alert удовлетворяющих условиям поиска
+    uint32 count = 5;
 }
 
 message AlertHistory {

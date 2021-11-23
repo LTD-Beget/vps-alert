@@ -31,16 +31,18 @@ message Alert {
     uint32 sort_weight = 7;
 
     enum Metric {
-        CPU = 0;                   // Загрузка CPU (%)
-        BANDWIDTH_INBOUND = 1;     // Пропускная способность Bandwidth Inbound (Mbps)
-        BANDWIDTH_OUTBOUND = 2;    // Пропускная способность Bandwidth Outbound (Mbps)
-        DISK_READ = 3;             // Скорость чтения с диска Disk - read (MB/s)
-        DISK_WRITE = 4;            // Скорость записи на диск Disk - write (MB/s)
-        MEMORY_UTILIZATION = 5;    // Использовано памяти Memory Utilization (%)
-        DISK_UTILIZATION = 6;      // Использовано места на диске Disk Utilization (%)
-        LA_1 = 7;                  // Load Average 1
-        LA_5 = 8;                  // Load Average 5
-        LA_15 = 15;                // Load Average 15
+        CPU = 0;                            // Загрузка CPU (%)
+        BANDWIDTH_INBOUND = 1;              // Пропускная способность Bandwidth Inbound (Mbps)
+        BANDWIDTH_OUTBOUND = 2;             // Пропускная способность Bandwidth Outbound (Mbps)
+        DISK_READ = 3;                      // Скорость чтения с диска Disk - read (MB/s)
+        DISK_WRITE = 4;                     // Скорость записи на диск Disk - write (MB/s)
+        MEMORY_UTILIZATION = 5;             // Использовано памяти Memory Utilization (%)
+        DISK_UTILIZATION = 6;               // Использовано места на диске Disk Utilization (%)
+        LA_1 = 7;                           // Load Average 1
+        LA_5 = 8;                           // Load Average 5
+        LA_15 = 15;                         // Load Average 15
+        BANDWIDTH_INBOUND_PRIVATE = 16;     // Пропускная способность Bandwidth Inbound для приватной сети (Mbps)
+        BANDWIDTH_OUTBOUND_PRIVATE = 17;    // Пропускная способность Bandwidth Outbound для приватной сети (Mbps)
     }
 
     enum Comparator {

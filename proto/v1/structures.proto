@@ -11,6 +11,8 @@ message Policy {
     repeated string vps_uuid = 3;
     // Список Alert для policy
     repeated Alert alert = 4;
+    // Флаг для политик, созданных системой
+    bool is_system = 5;
 }
 
 message Alert {

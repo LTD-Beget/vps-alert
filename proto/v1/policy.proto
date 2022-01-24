@@ -66,6 +66,7 @@ message CreatePolicyRequest {
 
     repeated AlertDetails alert = 2;
     repeated string vps_uuid = 3;
+    bool is_system = 4;
 }
 
 message CreatePolicyResponse {

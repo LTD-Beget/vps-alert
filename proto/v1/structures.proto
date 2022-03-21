@@ -43,6 +43,7 @@ message Alert {
         LA_15 = 15;                         // Load Average 15
         BANDWIDTH_INBOUND_PRIVATE = 16;     // Пропускная способность Bandwidth Inbound для приватной сети (Mbps)
         BANDWIDTH_OUTBOUND_PRIVATE = 17;    // Пропускная способность Bandwidth Outbound для приватной сети (Mbps)
+        DISK_SPACE_AVAILABLE = 18;          // Фактически занято место на диске (GB)
     }
 
     enum Comparator {

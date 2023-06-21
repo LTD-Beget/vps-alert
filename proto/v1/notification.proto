@@ -42,7 +42,6 @@ message EnableNotificationsRequest {
 
     enum Type {
         EMAIL = 0;
-        TELEGRAM = 1;
     }
 }
 
@@ -55,7 +54,6 @@ message DisableNotificationsRequest {
 
     enum Type {
         EMAIL = 0;
-        TELEGRAM = 1;
     }
 }
 

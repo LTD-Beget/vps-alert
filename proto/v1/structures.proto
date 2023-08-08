@@ -60,8 +60,6 @@ message Alert {
 }
 // Подписка на уведомления об Alert
 message Notifications {
-    // Уведомления в telegram
-    bool telegram = 1;
     // Уведомления по почте
     bool email = 2;
 }
